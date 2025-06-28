@@ -9,5 +9,19 @@
             offsetTop="10"
             offsetLeft="-10"
             offsetRight="10"/>
+        <vboxContainer
+            fullRect="true">
+            <control 
+                name="menuBarControl">
+                <menuBar
+                    name="menuBar"
+                    fullRect="true"
+                    offsetLeft="5">
+                    <popupMenu
+                        name="File">
+                    </popupMenu>
+                </menuBar>
+            </control>
+        </vboxContainer>
     </body>
 </suml>

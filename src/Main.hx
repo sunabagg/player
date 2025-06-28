@@ -14,6 +14,7 @@ class Main extends App {
             rootElement.addChild(player.rootElement);
         } catch (e:Dynamic) {
             trace("Error initializing Player: " + e);
+            throw e;
         }
     }
 }
