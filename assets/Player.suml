@@ -21,6 +21,9 @@
                         name="File">
                     </popupMenu>
                     <popupMenu
+                        name="View">
+                    </popupMenu>
+                    <popupMenu
                         name="Help">
                     </popupMenu>
                 </menuBar>
