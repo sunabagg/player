@@ -6,14 +6,18 @@ var theme: Theme
 func _init() -> void:
 	init_state(false)
 	var args = OS.get_cmdline_args()
-	var sbx_path = ""
-	for arg in args:
-		if (arg.ends_with(".sbx") and (arg.is_absolute_path() || arg.is_relative_path())):
-			sbx_path = arg
-	if not sbx_path.is_empty():
-		load_and_execute_sbx(sbx_path)
-	else:
-		load_and_execute_sbx("res://test5.sbx")
+	var root_path : String = ProjectSettings.globalize_path("res://")
+	if (!OS.has_feature("editor")):
+		root_path = OS.get_executable_path().get_base_dir()
+		if (OS.get_name() == "macOS"):
+			root_path = root_path.replace("MacOS", "Resources")
+	
+	if not root_path.ends_with("/"):
+		root_path += "/"
+	
+	var sbx_path := root_path + "player.sbx"
+	
+	load_and_execute_sbx(sbx_path)
 
 func _ready() -> void:
 	if (DisplayServer.is_dark_mode()):
