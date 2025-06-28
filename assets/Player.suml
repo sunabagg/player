@@ -20,6 +20,9 @@
                     <popupMenu
                         name="File">
                     </popupMenu>
+                    <popupMenu
+                        name="Help">
+                    </popupMenu>
                 </menuBar>
             </control>
         </vboxContainer>
