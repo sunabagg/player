@@ -29,6 +29,10 @@ window/dpi/allow_hidpi=false
 
 project/assembly_name="Sunaba"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/sbx_exporter/plugin.cfg")
+
 [gui]
 
 theme/custom="uid://l77ckodjfb54"
