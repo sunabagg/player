@@ -19,12 +19,14 @@
                     offsetLeft="5">
                     <popupMenu
                         name="File">
+                        <menuItem label="Open"/>
                     </popupMenu>
-                    <popupMenu
+                    <!--popupMenu
                         name="View">
-                    </popupMenu>
+                    </popupMenu-->
                     <popupMenu
                         name="Help">
+                        <menuItem label="About"/>
                     </popupMenu>
                 </menuBar>
             </control>
