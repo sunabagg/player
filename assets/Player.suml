@@ -22,7 +22,7 @@
                     customMinimumSize="0,27">
                     <popupMenu
                         name="File">
-                        <menuItem label="Open"/>
+                        <menuItem label="Open" icon="app://icons/16/application--arrow.png"/>
                     </popupMenu>
                     <!--popupMenu
                         name="View">
