@@ -12,11 +12,13 @@
         <vboxContainer
             fullRect="true">
             <control 
-                name="menuBarControl">
+                name="menuBarControl"
+                customMinimumSize="0,24">
                 <menuBar
                     name="menuBar"
                     fullRect="true"
-                    offsetLeft="5">
+                    offsetLeft="5"
+                    customMinimumSize="0,27">
                     <popupMenu
                         name="File">
                         <menuItem label="Open"/>
@@ -29,6 +31,18 @@
                         <menuItem label="About"/>
                     </popupMenu>
                 </menuBar>
+            </control>
+            <control 
+                name="gameView"
+                sizeFlagsVertical="3">
+                <subViewportContainer
+                    name="subViewportContainer"
+                    fullRect="true"
+                    stretch="true">
+                    <subViewport
+                        name="subViewport">
+                    </subViewport>
+                </subViewportContainer>
             </control>
         </vboxContainer>
     </body>
