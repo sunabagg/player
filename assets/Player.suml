@@ -18,7 +18,6 @@
                 <menuBar
                     name="menuBar"
                     fullRect="true"
-                    offsetLeft="5"
                     customMinimumSize="0,27">
                     <popupMenu
                         name="File">
@@ -29,7 +28,7 @@
                     </popupMenu-->
                     <popupMenu
                         name="Help">
-                        <menuItem label="About"/>
+                        <menuItem label="About" icon="app://icons/16/information-italic.png"/>
                     </popupMenu>
                 </menuBar>
             </control>
