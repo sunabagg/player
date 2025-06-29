@@ -10,10 +10,11 @@
             offsetLeft="-10"
             offsetRight="10"/>
         <vboxContainer
-            fullRect="true">
+            fullRect="true"
+            separation="0">
             <control 
                 name="menuBarControl"
-                customMinimumSize="0,24">
+                customMinimumSize="0,27">
                 <menuBar
                     name="menuBar"
                     fullRect="true"
