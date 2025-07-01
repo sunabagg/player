@@ -5,6 +5,11 @@ var theme: Theme
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:
 	init_state(false)
+	if (DisplayServer.is_dark_mode()):
+		theme = load("res://addons/lite/dark.tres")
+	else:
+		theme = load("res://addons/lite/light.tres")
+	set_theme(theme)
 	var args = OS.get_cmdline_args()
 	var root_path : String = ProjectSettings.globalize_path("res://")
 	if (!OS.has_feature("editor")):
@@ -20,8 +25,4 @@ func _init() -> void:
 	load_and_execute_sbx(sbx_path)
 
 func _ready() -> void:
-	if (DisplayServer.is_dark_mode()):
-		theme = load("res://addons/lite/dark.tres")
-	else:
-		theme = load("res://addons/lite/light.tres")
-	get_tree().root.theme = theme
+	pass
