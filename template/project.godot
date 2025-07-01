@@ -34,10 +34,6 @@ project/assembly_name="Sunaba"
 
 enabled=PackedStringArray("res://addons/sbx_exporter/plugin.cfg")
 
-[gui]
-
-theme/custom="uid://l77ckodjfb54"
-
 [physics]
 
 3d/physics_engine="Jolt Physics"
