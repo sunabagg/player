@@ -13,28 +13,17 @@ class Player extends Widget {
         load("app://Player.suml");
         var aboutDialog : AcceptDialog = AcceptDialog.toAcceptDialog(rootElement.find("aboutDialog"));
         buildAboutDialog(aboutDialog);
-        /*try {
-            //aboutDialog.popup(Rect2i.fromInts(0, 0, 0, 0));
-            //trace(aboutDialog.size.toString());
-            //aboutDialog.popupCentered(new Vector2i(184, 100));
-        }
-        catch (e) {
-            trace(e);
-        }*/
         var fileMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/File"));
         var helpMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/Help"));
         helpMenu.systemMenuId = 4;
         helpMenu.idPressed.connect((args: ArrayList) -> {
             try {
                 trace(args == null);
-                //var name : String = untyped __lua__("args.__name");
-                //untyped __lua__("_G.print('test: ' .. type(name)");
-                //trace(name);
                 var idVar : Variant = args.get(0);
                 trace(idVar == null);
                 var id : Int = idVar.toInt();
                 if (id == 0) {
-                    aboutDialog.popupCentered(new Vector2i(0, 0));
+                    aboutDialog.popupCentered(new Vector2i(300, 123));
                 }
             }
             catch(e) {
