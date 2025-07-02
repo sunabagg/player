@@ -25,4 +25,10 @@ func _init() -> void:
 	load_and_execute_sbx(sbx_path)
 
 func _ready() -> void:
+	var window = get_window()
+	var displayScale = DisplayServer.screen_get_dpi(window.current_screen)
+	#print(displayScale)
+	var fractionalScale: float = 0.01 * displayScale
+	window.content_scale_factor = fractionalScale
+	print(fractionalScale)
 	pass
