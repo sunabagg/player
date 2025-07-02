@@ -10,6 +10,7 @@
             offsetLeft="-10"
             offsetRight="10"/>
         <vboxContainer
+            name="vbox"
             fullRect="true"
             separation="0">
             <control 
@@ -45,5 +46,8 @@
                 </subViewportContainer>
             </control>
         </vboxContainer>
+        <acceptDialog
+            name="aboutDialog">
+        </acceptDialog>
     </body>
 </suml>
