@@ -26,10 +26,16 @@ class Player extends Widget {
         helpMenu.systemMenuId = 4;
         helpMenu.idPressed.connect((args: ArrayList) -> {
             try {
-                var idVar : Variant = untyped __lua__("args[0]");
+                trace(args == null);
+                //var name : String = untyped __lua__("args.__name");
+                //untyped __lua__("_G.print('test: ' .. type(name)");
+                //trace(name);
+                var idVar : Variant = args.get(0);
                 trace(idVar == null);
-                var id : Int = idVar;
-                trace(id);
+                var id : Int = idVar.toInt();
+                if (id == 0) {
+                    aboutDialog.popupCentered(new Vector2i(0, 0));
+                }
             }
             catch(e) {
                 trace(e);
