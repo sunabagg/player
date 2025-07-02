@@ -24,7 +24,7 @@ config/icon.macos="uid://bipasi4ii6raj"
 [display]
 
 window/subwindows/embed_subwindows=false
-window/dpi/allow_hidpi=false
+display_server/driver.linuxbsd="x11"
 
 [dotnet]
 
