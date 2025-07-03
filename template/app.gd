@@ -23,6 +23,9 @@ func _init() -> void:
 	var sbx_path := root_path + "player.sbx"
 	
 	load_and_execute_sbx(sbx_path)
+	on_exit.connect(func ():
+		get_tree().quit()
+	)
 
 func _ready() -> void:
 	var window = get_window()
