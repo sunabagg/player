@@ -47,7 +47,8 @@
             </control>
         </vboxContainer>
         <acceptDialog
-            name="aboutDialog">
+            name="aboutDialog"
+            title="About">
         </acceptDialog>
     </body>
 </suml>
