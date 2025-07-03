@@ -9,10 +9,16 @@ import sunaba.desktop.FileDialog;
 import sunaba.core.ArrayList;
 import sunaba.core.Variant;
 import sunaba.FileDialogMode;
+import sunaba.core.SubViewport;
 
 class Player extends Widget {
+    var subViewport: SubViewport;
+
     override function init() {
         load("app://Player.suml");
+
+        subViewport = SubViewport.toSubViewport(rootElement.find("vbox/gameView/subViewportContainer/subViewport"));
+
         var aboutDialog : AcceptDialog = AcceptDialog.toAcceptDialog(rootElement.find("aboutDialog"));
         buildAboutDialog(aboutDialog);
         var fileMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/File"));
