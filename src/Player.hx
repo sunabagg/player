@@ -70,9 +70,18 @@ class Player extends Widget {
 
     function openSbx(path: String) {
         trace(path);
-        if (runtime != null) {
-            runtime.delete();
-            runtime = null;
+        try {
+            if (runtime != null) {
+                runtime.delete();
+                runtime = null;
+            }
+            runtime = new Runtime();
+            subViewport.addChild(runtime);
+            runtime.init();
+            runtime.load(path);
+        }
+        catch (e) {
+            trace(e);
         }
     }
 }
