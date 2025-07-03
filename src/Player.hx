@@ -10,9 +10,11 @@ import sunaba.core.ArrayList;
 import sunaba.core.Variant;
 import sunaba.FileDialogMode;
 import sunaba.core.SubViewport;
+import sunaba.Runtime;
 
 class Player extends Widget {
     var subViewport: SubViewport;
+    var runtime: Runtime = null;
 
     override function init() {
         load("app://Player.suml");
@@ -68,5 +70,9 @@ class Player extends Widget {
 
     function openSbx(path: String) {
         trace(path);
+        if (runtime != null) {
+            runtime.delete();
+            runtime = null;
+        }
     }
 }
