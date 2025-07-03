@@ -37,6 +37,9 @@ class Player extends Widget {
 
                 fileDialog.popupCentered(new Vector2i(0, 0));
             }
+            else if (id == 1) {
+                untyped __lua__("_G.exit()");
+            }
         });
         var helpMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/Help"));
         helpMenu.systemMenuId = 4;

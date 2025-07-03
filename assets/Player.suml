@@ -23,6 +23,8 @@
                     <popupMenu
                         name="File">
                         <menuItem label="Open" icon="app://icons/16/application--arrow.png"/>
+                        name="Exit">
+                        <menuItem label="Exit" icon="app://icons/16/door-open-in.png"/>
                     </popupMenu>
                     <!--popupMenu
                         name="View">
