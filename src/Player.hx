@@ -18,6 +18,7 @@ import sunaba.input.InputEvent;
 import sunaba.input.InputService;
 import sunaba.Key;
 import sunaba.ui.Control;
+import sunaba.WindowMode;
 
 class Player extends Widget {
     var subViewport: SubViewport;
@@ -104,6 +105,15 @@ class Player extends Widget {
         if (InputService.isKeyLabelPressed(Key.f2)) {
             trace("F2 key Pressed");
             menuBarControl.visible = !menuBarControl.visible;
+        }
+        if (InputService.isKeyLabelPressed(Key.f11)) {
+            var window = rootElement.getWindow();
+            if (window.mode != WindowMode.fullscreen) {
+                window.mode = WindowMode.fullscreen;
+            }
+            else {
+                window.mode = WindowMode.windowed;
+            }
         }
     }
 
