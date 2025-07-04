@@ -3,6 +3,7 @@ package;
 import sunaba.ui.Widget;
 import sunaba.desktop.AcceptDialog;
 import sunaba.core.Vector2i;
+import sunaba.core.Vector2;
 import sunaba.core.Rect2i;
 import sunaba.desktop.PopupMenu;
 import sunaba.desktop.FileDialog;
@@ -35,6 +36,9 @@ class Player extends Widget {
         buildAboutDialog(aboutDialog);
 
         menuBarControl = Control.toControl(rootElement.find("vbox/menuBarControl"));
+        if (PlatformService.osName == "macOS") {
+            menuBarControl.customMinimumSize = new Vector2(0, 0);
+        }
 
         var fileMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/File"));
         fileMenu.idPressed.connect((args: ArrayList) -> {
@@ -102,17 +106,37 @@ class Player extends Widget {
     }
 
     function input(inpueEvent: InputEvent) {
-        if (InputService.isKeyLabelPressed(Key.f2)) {
-            trace("F2 key Pressed");
-            menuBarControl.visible = !menuBarControl.visible;
-        }
-        if (InputService.isKeyLabelPressed(Key.f11)) {
-            var window = rootElement.getWindow();
-            if (window.mode != WindowMode.fullscreen) {
-                window.mode = WindowMode.fullscreen;
+        if (PlatformService.osName != "macOS") {
+            if (InputService.isKeyLabelPressed(Key.escape)) {
+                trace("Escape key Pressed");
+                App.exit();
             }
-            else {
-                window.mode = WindowMode.windowed;
+            if (InputService.isKeyLabelPressed(Key.f2)) {
+                trace("F2 key Pressed");
+                menuBarControl.visible = !menuBarControl.visible;
+            }
+            if (InputService.isKeyLabelPressed(Key.f11)) {
+                var window = rootElement.getWindow();
+                if (window.mode != WindowMode.fullscreen) {
+                    window.mode = WindowMode.fullscreen;
+                }
+                else {
+                    window.mode = WindowMode.windowed;
+                }
+            }
+        }
+        else {
+            if (InputService.isKeyLabelPressed(Key.meta) && InputService.isKeyLabelPressed(Key.f)) {
+                var window = rootElement.getWindow();
+                if (window.mode != WindowMode.fullscreen) {
+                    window.mode = WindowMode.fullscreen;
+                }
+                else {
+                    window.mode = WindowMode.windowed;
+                }
+            }
+            if (InputService.isKeyLabelPressed(Key.meta) && InputService.isKeyLabelPressed(Key.q)) {
+                App.exit();
             }
         }
     }
