@@ -53,7 +53,7 @@ class Player extends Widget {
             }
         });
         var helpMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/Help"));
-        if (PlatformService.deviceType == DeviceType.desktop && PlatformService.osName != "Windows") {
+        if ((PlatformService.deviceType == DeviceType.desktop) && (PlatformService.osName != "Windows")) {
             helpMenu.systemMenuId = 4;
         }
         helpMenu.idPressed.connect((args: ArrayList) -> {
