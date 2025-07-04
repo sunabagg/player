@@ -12,6 +12,8 @@ import sunaba.FileDialogMode;
 import sunaba.core.SubViewport;
 import sunaba.Runtime;
 import sunaba.App;
+import sunaba.core.PlatformService;
+import sunaba.core.DeviceType;
 
 class Player extends Widget {
     var subViewport: SubViewport;
@@ -51,7 +53,9 @@ class Player extends Widget {
             }
         });
         var helpMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/Help"));
-        helpMenu.systemMenuId = 4;
+        if (PlatformService.deviceType == DeviceType.desktop && PlatformService.osName != "Windows") {
+            helpMenu.systemMenuId = 4;
+        }
         helpMenu.idPressed.connect((args: ArrayList) -> {
             var id = args.get(0).toInt();
             if (id == 0) {
@@ -66,6 +70,24 @@ class Player extends Widget {
         var aboutString = "Sunaba Player\n";
         aboutString += "Version 0.7.0\n";
         aboutString += "(C) 2022-2025 mintkat\n";
+        aboutString += "\n";
+
+        aboutString += "OS: " + PlatformService.osName + "\n";
+        var deviceTypeStr = "Unknown";
+        if (PlatformService.deviceType == DeviceType.desktop) {
+            deviceTypeStr = "Desktop";
+        }
+        else if (PlatformService.deviceType == DeviceType.mobile) {
+            deviceTypeStr = "Mobile";
+        }
+        else if (PlatformService.deviceType == DeviceType.web) {
+            deviceTypeStr = "Web";
+        }
+        else if (PlatformService.deviceType == DeviceType.xr) {
+            deviceTypeStr = "XR";
+        }
+        aboutString += "Device Type: " + deviceTypeStr + "\n";
+
         dialog.dialogText = aboutString;
     }
 
