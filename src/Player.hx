@@ -11,6 +11,7 @@ import sunaba.core.Variant;
 import sunaba.FileDialogMode;
 import sunaba.core.SubViewport;
 import sunaba.Runtime;
+import sunaba.App;
 
 class Player extends Widget {
     var subViewport: SubViewport;
@@ -46,7 +47,7 @@ class Player extends Widget {
                 fileDialog.popupCentered(new Vector2i(0, 0));
             }
             else if (id == 1) {
-                untyped __lua__("_G.exit()");
+                App.exit();
             }
         });
         var helpMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/Help"));
