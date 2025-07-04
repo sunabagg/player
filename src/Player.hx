@@ -14,10 +14,16 @@ import sunaba.Runtime;
 import sunaba.App;
 import sunaba.core.PlatformService;
 import sunaba.core.DeviceType;
+import sunaba.input.InputEvent;
+import sunaba.input.InputService;
+import sunaba.Key;
+import sunaba.ui.Control;
 
 class Player extends Widget {
     var subViewport: SubViewport;
     var runtime: Runtime = null;
+
+    var menuBarControl: Control;
 
     override function init() {
         load("app://Player.suml");
@@ -26,6 +32,9 @@ class Player extends Widget {
 
         var aboutDialog : AcceptDialog = AcceptDialog.toAcceptDialog(rootElement.find("aboutDialog"));
         buildAboutDialog(aboutDialog);
+
+        menuBarControl = Control.toControl(rootElement.find("vbox/menuBarControl"));
+
         var fileMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/File"));
         fileMenu.idPressed.connect((args: ArrayList) -> {
             var id = args.get(0).toInt();
@@ -89,6 +98,13 @@ class Player extends Widget {
         aboutString += "Device Type: " + deviceTypeStr + "\n";
 
         dialog.dialogText = aboutString;
+    }
+
+    function input(inpueEvent: InputEvent) {
+        if (InputService.isKeyLabelPressed(Key.f2)) {
+            trace("F2 key Pressed");
+            menuBarControl.visible = !menuBarControl.visible;
+        }
     }
 
     function openSbx(path: String) {
