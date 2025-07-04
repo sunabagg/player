@@ -3,4 +3,3 @@
 *.so filter=lfs diff=lfs merge=lfs -text
 
 *mobdebug.lua linguist-detectable=false
-**/addons linguist-detectable=false
