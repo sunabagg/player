@@ -31,7 +31,12 @@ class Player extends Widget {
         load("app://Player.suml");
 
         var args = Sys.args();
-        trace(args.toString());
+        var sbxPath = "";
+        for (arg in args) {
+            if (StringTools.endsWith(arg, ".sbx") && sbxPath == "") {
+                sbxPath = arg;
+            }
+        }
 
         subViewport = SubViewport.toSubViewport(rootElement.find("vbox/gameView/subViewportContainer/subViewport"));
 
@@ -81,6 +86,10 @@ class Player extends Widget {
                 aboutDialog.popupCentered(new Vector2i(300 * scaleFactorInt, 123 * scaleFactorInt));
             }
         });
+
+        if (sbxPath != "" && StringTools.endsWith(sbxPath, ".sbx")) {
+            openSbx(sbxPath);
+        }
     }
 
     function buildAboutDialog(dialog: AcceptDialog) {
