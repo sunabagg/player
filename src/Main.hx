@@ -8,7 +8,6 @@ class Main extends App {
     }
 
     override function init() {
-        Sys.println("Hello, World!");
         try {
             var player = new Player();
             rootElement.addChild(player.rootElement);
