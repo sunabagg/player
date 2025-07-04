@@ -9,7 +9,7 @@ func _init() -> void:
 	else:
 		theme = load("res://addons/lite/light.tres")
 	set_theme(theme)
-	var args = OS.get_cmdline_args()
+	args = OS.get_cmdline_args()
 	var root_path : String = ProjectSettings.globalize_path("res://")
 	if (!OS.has_feature("editor")):
 		root_path = OS.get_executable_path().get_base_dir()

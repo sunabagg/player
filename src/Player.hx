@@ -30,6 +30,9 @@ class Player extends Widget {
     override function init() {
         load("app://Player.suml");
 
+        var args = Sys.args();
+        trace(args.toString());
+
         subViewport = SubViewport.toSubViewport(rootElement.find("vbox/gameView/subViewportContainer/subViewport"));
 
         var aboutDialog : AcceptDialog = AcceptDialog.toAcceptDialog(rootElement.find("aboutDialog"));
