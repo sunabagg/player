@@ -2,7 +2,6 @@ extends App
 
 var theme: Theme
 
-# Called when the node enters the scene tree for the first time.
 func _init() -> void:
 	init_state(false)
 	if (DisplayServer.is_dark_mode()):
@@ -23,15 +22,13 @@ func _init() -> void:
 	var sbx_path := root_path + "player.sbx"
 	
 	load_and_execute_sbx(sbx_path)
-	on_exit.connect(func ():
+	on_exit.connect(func():
 		get_tree().quit()
 	)
 
 func _ready() -> void:
 	var window = get_window()
 	var displayScale = DisplayServer.screen_get_dpi(window.current_screen)
-	#print(displayScale)
 	var fractionalScale: float = 0.01 * displayScale
 	window.content_scale_factor = fractionalScale
-	print(fractionalScale)
 	pass
