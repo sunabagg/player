@@ -136,7 +136,7 @@ class Player extends Widget {
     function input(inpueEvent: InputEvent) {
         trace("Input");
         if (PlatformService.osName != "macOS") {
-            if (InputService.isKeyLabelPressed(Key.escape)) {
+            if (InputService.isKeyLabelPressed(Key.f1) && InputService.isKeyLabelPressed(Key.ctrl)) {
                 trace("Escape key Pressed");
                 App.exit();
             }
