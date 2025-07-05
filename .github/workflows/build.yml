@@ -78,3 +78,6 @@ jobs:
 
       - name: Build buildsystem scripts
         run: haxe buildsys.hxml
+      
+      - name: Build
+        run: node build -h
