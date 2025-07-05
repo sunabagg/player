@@ -28,8 +28,6 @@ class Player extends Widget {
     var menuBarControl: Control;
 
     override function init() {
-        //stupid hack to make sure the rootElement is initialized
-        keepChildren = true;
         load("app://Player.suml");
 
         var args = Sys.args();
