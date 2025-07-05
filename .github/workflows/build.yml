@@ -30,6 +30,7 @@ jobs:
         with:
           submodules: recursive
           lfs: true
+      
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.9.1
         
@@ -61,3 +62,6 @@ jobs:
       - name: Test Godot
         run: |
           godot --version
+      
+      - name: Build buildsystem scripts
+        run: haxe buildsys.hxml
