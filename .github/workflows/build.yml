@@ -73,6 +73,7 @@ jobs:
         run: |
           haxelib git sunaba https://github.com/sunabagg/sunaba.git
           haxelib git tsukuru https://github.com/sunabagg/tsukuru.git
+          haxelid install hxnodejs
 
       - name: Build buildsystem scripts
         run: haxe buildsys.hxml
