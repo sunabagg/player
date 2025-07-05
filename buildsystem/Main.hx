@@ -17,6 +17,18 @@ class Main {
     public static function main() {
         var args = Sys.args();
 
+        if (args[0] == "-h" || args[0] == "--help") {
+            Sys.println("Usage: node build [run|export] [--godot-command=<command>] [--target=<platform>] [-debug|-release]");
+            Sys.println("  run: Run the Sunaba Player");
+            Sys.println("  --godot-command=<command>: Specify the Godot command to use (default: godot)");
+            Sys.println("  export: Export the Sunaba Player for the specified platform");
+            Sys.println("  --godot-command=<command>: Specify the Godot command to use (default: godot)");
+            Sys.println("  --target=<platform>: Specify the target platform (default: auto-detect based on OS)");
+            Sys.println("  -debug: Export in debug mode");
+            Sys.println("  -release: Export in release mode");
+            return;
+        }
+
         var currentDir = Sys.getCwd();
         trace(currentDir);
         if (StringTools.contains(currentDir, "\\"))
