@@ -139,17 +139,21 @@ class Player extends Widget {
         }
         else {
             if (InputService.isKeyLabelPressed(Key.meta) && InputService.isKeyLabelPressed(Key.f)) {
-                var window = rootElement.getWindow();
-                if (window.mode != WindowMode.fullscreen) {
-                    window.mode = WindowMode.fullscreen;
-                }
-                else {
-                    window.mode = WindowMode.windowed;
-                }
+                toggleFullscreen();
             }
             if (InputService.isKeyLabelPressed(Key.meta) && InputService.isKeyLabelPressed(Key.q)) {
                 App.exit();
             }
+        }
+    }
+
+    function toggleFullscreen() {
+        var window = rootElement.getWindow();
+        if (window.mode != WindowMode.fullscreen) {
+            window.mode = WindowMode.fullscreen;
+        }
+        else {
+            window.mode = WindowMode.windowed;
         }
     }
 
