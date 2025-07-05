@@ -71,7 +71,7 @@ class Main {
             export();
         }
 
-        if (packageFormat == PackageFormat.nsis && exportType == ExportType.release) {
+        if (packageFormat == PackageFormat.nsis) {
             buildNsisInstaller();
         }
     }
@@ -148,7 +148,12 @@ class Main {
             FileSystem.createDirectory(Sys.getCwd() + "/bin/" + targetPlatform + "-" + exportType + "-nsis");
         }
 
-        var command = nsisCommand + " setup.nsi";
+        var nsisScript = "setup.nsi";
+        if (exportType == ExportType.debug) {
+            nsisScript = "setup-debug.nsi";
+        }
+
+        var command = nsisCommand + " " + nsisScript;
         trace("Running NSIS command: " + command);
         var result = Sys.command(command);
         if (result != 0) {
