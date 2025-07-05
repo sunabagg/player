@@ -128,13 +128,7 @@ class Player extends Widget {
                 menuBarControl.visible = !menuBarControl.visible;
             }
             if (InputService.isKeyLabelPressed(Key.f11)) {
-                var window = rootElement.getWindow();
-                if (window.mode != WindowMode.fullscreen) {
-                    window.mode = WindowMode.fullscreen;
-                }
-                else {
-                    window.mode = WindowMode.windowed;
-                }
+                toggleFullscreen();
             }
         }
         else {
