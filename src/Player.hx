@@ -28,6 +28,8 @@ class Player extends Widget {
     var menuBarControl: Control;
 
     override function init() {
+        //stupid hack to make sure the rootElement is initialized
+        keepChildren = true;
         load("app://Player.suml");
 
         var args = Sys.args();
@@ -74,6 +76,22 @@ class Player extends Widget {
                 App.exit();
             }
         });
+
+        var viewMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/View"));
+        if (PlatformService.osName == "macOS") {
+            viewMenu.removeItem(1); // Remove "Menu Bar" item on macOS
+            viewMenu.setItemText(0, "Toggle Fullscreen (Cmd+F)");
+        }
+        viewMenu.idPressed.connect((args: ArrayList) -> {
+            var id = args.get(0).toInt();
+            if (id == 0) {
+                toggleFullscreen();
+            }
+            else if (id == 1) {
+                toggleMenuBar();
+            }
+        });
+
         var helpMenu = PopupMenu.toPopupMenu(rootElement.find("vbox/menuBarControl/menuBar/Help"));
         if ((PlatformService.deviceType == DeviceType.desktop) && (PlatformService.osName != "Windows")) {
             helpMenu.systemMenuId = 4;
@@ -118,12 +136,14 @@ class Player extends Widget {
     }
 
     function input(inpueEvent: InputEvent) {
+        trace("Input");
         if (PlatformService.osName != "macOS") {
             if (InputService.isKeyLabelPressed(Key.escape)) {
                 trace("Escape key Pressed");
                 App.exit();
             }
             if (InputService.isKeyLabelPressed(Key.f2)) {
+                trace("F2 key Pressed");
                 toggleMenuBar();
             }
             if (InputService.isKeyLabelPressed(Key.f11)) {
