@@ -70,7 +70,7 @@ jobs:
           haxelib setup ~/.hxlib
           haxelib --global update haxelib
       
-      - name: install haxelib dependencies
+      - name: Install haxelib dependencies
         run: |
           haxelib git sunaba https://github.com/sunabagg/sunaba.git
           haxelib git tsukuru https://github.com/sunabagg/tsukuru.git
