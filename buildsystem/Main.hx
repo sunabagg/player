@@ -145,7 +145,7 @@ class Main {
         }
         else if (Sys.systemName() == "Linux" || Sys.systemName() == "Mac") {
             nsisCommand = "makensis";
-            if (Sys.command(nsisCommand + " --version") != 0) {
+            if (Sys.command(nsisCommand + " -VERSION") != 0) {
                 Sys.println("NSIS is not installed or not found in PATH.");
                 Sys.exit(-1);
             }
