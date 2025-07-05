@@ -80,6 +80,5 @@ jobs:
         run: haxe buildsys.hxml
       
       - name: Build
-        if: matrix.config.target != 'windows-amd64'
-        run: node build export --target==${{ matrix.config.target }} --build-type=${{ matrix.build_type }} --pkgformat=${{ matrix.config.pkgformat }}
+        run: node build export --target=${{ matrix.config.target }} --build-type=${{ matrix.build_type }} --pkgformat=${{ matrix.config.pkgformat }}
       
