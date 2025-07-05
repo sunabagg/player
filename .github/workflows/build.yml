@@ -80,5 +80,5 @@ jobs:
         run: haxe buildsys.hxml
       
       - name: Build
-        run: node build export --target=${{ matrix.config.target }} --build-type=${{ matrix.build_type }} --pkgformat=${{ matrix.config.pkgformat }}
+        run: node build export --target=${{ matrix.config.target }} -{{ matrix.build_type }} --pkgformat=${{ matrix.config.pkgformat }}
       
