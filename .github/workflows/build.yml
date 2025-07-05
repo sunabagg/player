@@ -42,6 +42,7 @@ jobs:
         with:
           # Godot version to use
           version: 4.4.1-stable
+          export-templates: true
 
       - name: Install Dependencies (macOS)
         if: matrix.config.os == 'macos-latest'
