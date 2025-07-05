@@ -137,9 +137,18 @@ class Main {
 
     public static function buildNsisInstaller() {
         var nsisCommand = "makensis";
-        if (Sys.command(nsisCommand + " /VERSION") != 0) {
-            Sys.println("NSIS is not installed or not found in PATH.");
-            Sys.exit(-1);
+        if (Sys.systemName() == "Windows") {
+            if (Sys.command(nsisCommand + " /VERSION") != 0) {
+                Sys.println("NSIS is not installed or not found in PATH.");
+                Sys.exit(-1);
+            }
+        }
+        else if (Sys.systemName() == "Linux" || Sys.systemName() == "Mac") {
+            nsisCommand = "makensis";
+            if (Sys.command(nsisCommand + " --version") != 0) {
+                Sys.println("NSIS is not installed or not found in PATH.");
+                Sys.exit(-1);
+            }
         }
 
         var outputInstallerPath = Sys.getCwd() + "bin/" + targetPlatform + "-" + exportType + "-nsis/SunabaPlayerInstaller.exe";
