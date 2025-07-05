@@ -67,12 +67,12 @@ jobs:
         run: |
           mkdir -p ~/.hxlib
           haxelib setup ~/.hxlib
+          haxelib --global update haxelib
       
       - name: install haxelib dependencies
         run: |
-          haxelib --global update haxelib
-          haxelib git https://github.com/sunabagg/sunaba.git
-          haxelib git https://github.com/sunabagg/tsukuru.git
+          haxelib git sunaba https://github.com/sunabagg/sunaba.git
+          haxelib git tsukuru https://github.com/sunabagg/tsukuru.git
 
       - name: Build buildsystem scripts
         run: haxe buildsys.hxml
