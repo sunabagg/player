@@ -8,6 +8,8 @@ class Main {
 
     static var exportType = ExportType.debug;
 
+    static var packageFormat = PackageFormat.none;
+
     public static function main() {
         var args = Sys.args();
 
@@ -48,6 +50,14 @@ class Main {
             else if (arg == "-release") {
                 exportType = ExportType.release;
             }
+            else if (StringTools.startsWith(arg, "--pkgformat=")) {
+                var format = StringTools.replace(arg, "--pkgformat=", "");
+                if (format != "") {
+                    if (format == "nsis") {
+                        packageFormat = PackageFormat.nsis;
+                    }
+                }
+            }
         }
 
         trace("exportType == ExportType.debug: " + exportType == ExportType.debug);
@@ -59,6 +69,10 @@ class Main {
         }
         else if (args[0] == "export") {
             export();
+        }
+
+        if (packageFormat == PackageFormat.nsis && exportType == ExportType.release) {
+            buildNsisInstaller();
         }
     }
 
@@ -115,8 +129,33 @@ class Main {
 
         var result = Sys.command(command);
         if (result != 0) {
+            trace("Godot export failed with code " + result);
             Sys.println(godotCommand + " exited with code " + result);
             Sys.exit(result);
         }
+    }
+
+    public static function buildNsisInstaller() {
+        var nsisCommand = "makensis";
+        if (Sys.command(nsisCommand + " /VERSION") != 0) {
+            Sys.println("NSIS is not installed or not found in PATH.");
+            Sys.exit(-1);
+        }
+
+        var outputInstallerPath = Sys.getCwd() + "bin/" + targetPlatform + "-" + exportType + "-nsis/SunabaPlayerInstaller.exe";
+
+        if (!FileSystem.exists(Sys.getCwd() + "/bin/" + targetPlatform + "-" + exportType + "-nsis")) {
+            FileSystem.createDirectory(Sys.getCwd() + "/bin/" + targetPlatform + "-" + exportType + "-nsis");
+        }
+
+        var command = nsisCommand + " setup.nsi";
+        trace("Running NSIS command: " + command);
+        var result = Sys.command(command);
+        if (result != 0) {
+            Sys.println("NSIS installer creation failed with code " + result);
+            Sys.exit(result);
+        }
+
+        Sys.println("NSIS installer created at: " + outputInstallerPath);
     }
 }
