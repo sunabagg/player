@@ -1,9 +1,9 @@
 name: Build
 on:
-  #push:
-  #  paths-ignore:
-  #    - '.gitignore'
-  #    - '*.md'
+  push:
+    paths-ignore:
+      - '.gitignore'
+      - '*.md'
   
   #schedule:
   #  - cron: '0 8 * * *' # run at 8 AM UTC/ 12 AM AKDT
@@ -63,5 +63,15 @@ jobs:
         run: |
           godot --version
       
+      - name: Setup Haxelib
+        run: |
+          mkdir -p ~/.hxlib
+          haxelib setup ~/.hxlib
+      
+      - name: install haxelib dependencies
+        run: |
+          haxelib git https://github.com/sunabagg/sunaba.git
+          haxelib git https://github.com/sunabagg/tsukuru.git
+
       - name: Build buildsystem scripts
         run: haxe buildsys.hxml
