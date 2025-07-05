@@ -1,12 +1,6 @@
 package;
 import sys.FileSystem;
 
-
-enum abstract ExportType(String) from String to String {
-    var release = "release";
-    var debug = "debug";
-}
-
 class Main {
     static var godotCommand = "godot";
 
