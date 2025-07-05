@@ -51,7 +51,7 @@ var ICONS_GROUP
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "bin\SunabaPlayerSetup.exe"
-InstallDir "$LOCALAPPDATA\Sunaba\Player"
+InstallDir "$LOCALAPPDATA\Programs\Sunaba\Player"
 InstallDirRegKey HKCU "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
 ShowUnInstDetails show
