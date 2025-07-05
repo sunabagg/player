@@ -17,9 +17,9 @@ jobs:
       matrix:
         build_type: ['debug', 'release']
         config:
-          - { name: '🍏 macOS', target: mac-universal,  os: macos-latest }
-          - { name: '🐧 Linux', target: linux-amd64, os: ubuntu-latest }
-          - { name: '🪟 Windows', target: windows-amd64, os: ubuntu-latest }
+          - { name: '🍏 macOS', target: mac-universal, pkgformat: none, os: macos-latest }
+          - { name: '🐧 Linux', target: linux-amd64, pkgformat: none, os: ubuntu-latest }
+          - { name: '🪟 Windows', target: windows-amd64, pkgformat: nsis, os: ubuntu-latest }
 
     name: 🛠 Build / ${{ matrix.config.name }} (${{ matrix.build_type }})
     runs-on: ${{ matrix.config.os }}
@@ -80,4 +80,6 @@ jobs:
         run: haxe buildsys.hxml
       
       - name: Build
-        run: node build -h
+        if: matrix.config.target != 'windows-amd64'
+        run: node build export --target==${{ matrix.config.target }} --build-type=${{ matrix.build_type }} --pkgformat=${{ matrix.config.pkgformat }}
+      
