@@ -95,7 +95,7 @@ class Main {
             }
         }
         var targetName: String = "";
-        if (targetPlatform == "mac-univeral") {
+        if (targetPlatform == "mac-universal") {
             targetName = "Sunaba Player.app";
         }
         else if (targetPlatform == "windows-amd64") {
