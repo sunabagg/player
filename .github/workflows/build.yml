@@ -87,5 +87,5 @@ jobs:
         with:
           name: sunaba-player-${{ matrix.config.target }}-${{ matrix.build_type }}
           path: |
-            &{{ github.workspace }}/bin/*
+            ${{ github.workspace }}/bin/*
       
