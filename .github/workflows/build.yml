@@ -15,11 +15,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build_type: ['Debug', 'Release']
+        build_type: ['debug', 'release']
         config:
-          - { name: '🍏 macOS Clang', os: macos-latest }
-          - { name: '🐧 Linux GCC', os: ubuntu-latest }
-          - { name: '🪟 Windows MSVC', os: windows-latest }
+          - { name: '🍏 macOS', target: mac-universal,  os: macos-latest }
+          - { name: '🐧 Linux', target: linux-amd64, os: ubuntu-latest }
+          - { name: '🪟 Windows', target: windows-amd64, os: ubuntu-latest }
 
     name: 🛠 Build / ${{ matrix.config.name }} (${{ matrix.build_type }})
     runs-on: ${{ matrix.config.os }}
@@ -51,7 +51,7 @@ jobs:
         if: matrix.config.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y haxe
+          sudo apt-get install -y haxe nsis
 
       - name: Install Dependencies (Windows)
         if: matrix.config.os == 'windows-latest'
