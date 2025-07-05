@@ -23,12 +23,11 @@
                     <popupMenu
                         name="File">
                         <menuItem label="Open" icon="app://icons/16/application--arrow.png"/>
-                        name="Exit">
                         <menuItem label="Exit" icon="app://icons/16/door-open-in.png"/>
                     </popupMenu>
-                    <!--popupMenu
+                    <popupMenu
                         name="View">
-                    </popupMenu-->
+                    </popupMenu>
                     <popupMenu
                         name="Help">
                         <menuItem label="About" icon="app://icons/16/information-italic.png"/>
