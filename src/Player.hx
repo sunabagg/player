@@ -124,8 +124,7 @@ class Player extends Widget {
                 App.exit();
             }
             if (InputService.isKeyLabelPressed(Key.f2)) {
-                trace("F2 key Pressed");
-                menuBarControl.visible = !menuBarControl.visible;
+                toggleMenuBar();
             }
             if (InputService.isKeyLabelPressed(Key.f11)) {
                 toggleFullscreen();
@@ -139,6 +138,10 @@ class Player extends Widget {
                 App.exit();
             }
         }
+    }
+
+    function toggleMenuBar() {
+        menuBarControl.visible = !menuBarControl.visible;
     }
 
     function toggleFullscreen() {
