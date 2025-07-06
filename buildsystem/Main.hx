@@ -1,5 +1,6 @@
 package;
 import sys.FileSystem;
+import sys.io.File;
 
 class Main {
     static var godotCommand = "godot";
@@ -171,5 +172,77 @@ class Main {
         }
 
         Sys.println("NSIS installer created at: " + outputInstallerPath);
+    }
+
+    public static function createDebPackage() {
+        var cwd = Sys.getCwd();
+
+        if (!StringTools.endsWith(cwd, "/")) {
+            cwd += "/";
+        }
+
+        var debRootPath = cwd + ".debian/";
+        if (!FileSystem.exists(debRootPath)) {
+            FileSystem.createDirectory(debRootPath);
+        }
+
+        var debPackagePath = debRootPath + "sunaba-player_" + exportType + "/";
+        if (!FileSystem.exists(debPackagePath)) {
+            FileSystem.createDirectory(debPackagePath);
+        }
+
+        var debUsrPath = debPackagePath + "usr/";
+        if (!FileSystem.exists(debUsrPath)) {
+            FileSystem.createDirectory(debUsrPath);
+        }
+
+        buildUnixDir(debUsrPath);
+
+        var debDebianPath = debPackagePath + "DEBIAN/";
+        if (!FileSystem.exists(debDebianPath)) {
+            FileSystem.createDirectory(debDebianPath);
+        }
+
+
+    }
+
+    public static function buildUnixDir(path: String) {
+        var rootPath = Sys.getCwd() + "bin";
+        var exportPath = rootPath + "/" + targetPlatform + "-" + exportType + "/";
+
+        if (!StringTools.endsWith(path, "/")) {
+            path += "/";
+        }
+
+        var binPath = path + "bin/";
+        var libPath = path + "lib/";
+        var sharePath = path + "share/";
+        var shareSunabaPath = sharePath + "sunaba/";
+
+        if (!FileSystem.exists(binPath)) {
+            FileSystem.createDirectory(binPath);
+        }
+        if (!FileSystem.exists(libPath)) {
+            FileSystem.createDirectory(libPath);
+        }
+        if (!FileSystem.exists(sharePath)) {
+            FileSystem.createDirectory(sharePath);
+        }
+        if (!FileSystem.exists(shareSunabaPath)) {
+            FileSystem.createDirectory(shareSunabaPath);
+        }
+
+        var executableName = "sunaba-player";
+        File.copy(exportPath + executableName, binPath + executableName);
+        var libraryName = "libsunaba.so";
+        if (exportType == ExportType.debug) {
+            libraryName = "libsunaba-d.so";
+        }
+        File.copy(exportPath + libraryName, libPath + libraryName);
+        for (file in FileSystem.readDirectory(exportPath)) {
+            if (StringTools.contains(file, executableName) || StringTools.contains(file, libraryName)) {
+                continue;
+            }
+        }
     }
 }
