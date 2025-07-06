@@ -11,6 +11,8 @@ class Main {
 
     static var packageFormat = PackageFormat.none;
 
+    static var targetName: String = "";
+
     public static function main() {
         var args = Sys.args();
 
@@ -24,6 +26,16 @@ class Main {
             Sys.println("  -debug: Export in debug mode");
             Sys.println("  -release: Export in release mode");
             return;
+        }
+
+        if (args[0] == "install") {
+            if (Sys.systemName() == "Linux") {
+                exportType = ExportType.release;
+                var usrPath = "/usr/";
+                setupBin();
+                buildUnixUsrDir(usrPath);
+                return;
+            }
         }
 
         var currentDir = Sys.getCwd();
@@ -87,7 +99,7 @@ class Main {
         Sys.exit(result);
     }
 
-    public static function export() {
+    public static function setupBin() {
         if (targetPlatform == "") {
             var systemName =  Sys.systemName();
             if (systemName == "Windows") {
@@ -100,7 +112,6 @@ class Main {
                 targetPlatform = "linux-amd64";
             }
         }
-        var targetName: String = "";
         if (targetPlatform == "mac-universal") {
             targetName = "Sunaba Player.app";
         }
@@ -115,9 +126,6 @@ class Main {
             Sys.exit(-1);
         }
 
-        Sys.println("Exporting for target platform: " + targetPlatform);
-        Sys.println("Exporting for " + exportType);
-
         var rootPath = Sys.getCwd() + "bin";
         if (!FileSystem.exists(rootPath)) {
             FileSystem.createDirectory(rootPath);
@@ -127,8 +135,13 @@ class Main {
         if (!FileSystem.exists(targetPath)) {
             FileSystem.createDirectory(targetPath);
         }
+    }
 
+    public static function export() {
+        setupBin();
 
+        Sys.println("Exporting for target platform: " + targetPlatform);
+        Sys.println("Exporting for " + exportType);
 
         var command = godotCommand + " --path ./template --headless --editor --export-" + exportType + " \"" + targetPlatform + "\" \"../bin/" + targetPlatform + "-" + exportType + "/" + targetName + "\"";
         //trace(command);
