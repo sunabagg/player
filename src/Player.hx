@@ -20,6 +20,8 @@ import sunaba.input.InputService;
 import sunaba.Key;
 import sunaba.ui.Control;
 import sunaba.WindowMode;
+import sunaba.core.Element;
+import sunaba.desktop.Window;
 
 class Player extends Widget {
     var subViewport: SubViewport;
@@ -103,6 +105,23 @@ class Player extends Widget {
             }
         });
 
+        var viewport = rootElement.getViewport();
+        trace(viewport == null);
+
+        try {
+            var parent : Element = untyped __lua__("_G.rootElement");
+            var window = parent.getWindow();
+            //var window = Window.toWindow(parentParent);
+            /*window.filesDropped.connect((args: ArrayList) -> {
+                var fileStringVector = args.get(0).toStringArray();
+                var firstSbxPath = fileStringVector.get(0);
+                trace(firstSbxPath);
+            });*/
+        }
+        catch (e) {
+            trace(e);
+        }
+
         if (sbxPath != "" && StringTools.endsWith(sbxPath, ".sbx")) {
             openSbx(sbxPath);
         }
@@ -134,7 +153,6 @@ class Player extends Widget {
     }
 
     function input(inpueEvent: InputEvent) {
-        trace("Input");
         if (PlatformService.osName != "macOS") {
             if (InputService.isKeyLabelPressed(Key.ctrl) && InputService.isKeyLabelPressed(Key.f1)) {
                 trace("Escape key Pressed");
