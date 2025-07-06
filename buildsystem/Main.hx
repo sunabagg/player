@@ -234,11 +234,13 @@ class Main {
 
         var executableName = "sunaba-player";
         File.copy(exportPath + executableName, binPath + executableName);
+
         var libraryName = "libsunaba.so";
         if (exportType == ExportType.debug) {
             libraryName = "libsunaba-d.so";
         }
         File.copy(exportPath + libraryName, libPath + libraryName);
+
         for (file in FileSystem.readDirectory(exportPath)) {
             if (StringTools.contains(file, executableName) || StringTools.contains(file, libraryName)) {
                 continue;
