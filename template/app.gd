@@ -15,6 +15,11 @@ func _init() -> void:
 		root_path = OS.get_executable_path().get_base_dir()
 		if (OS.get_name() == "macOS"):
 			root_path = root_path.replace("MacOS", "Resources")
+		elif (OS.get_name() == "Linux"):
+			var share_path = OS.get_executable_path().replace("bin/sunaba-player", "share/sunaba")
+			print(share_path)
+			if (DirAccess.dir_exists_absolute(share_path)):
+				root_path = share_path
 	
 	if not root_path.ends_with("/"):
 		root_path += "/"
