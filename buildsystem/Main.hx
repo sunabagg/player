@@ -35,7 +35,6 @@ class Main {
         tsukuru.zipOutputPath = currentDir + "template/player.sbx";
         tsukuru.build(currentDir + "player.snbproj");
 
-
         for (i in 0...args.length) {
             var arg = args[i];
             if (StringTools.startsWith(arg, "--godot-command=")) {
@@ -57,6 +56,9 @@ class Main {
                     if (format == "nsis") {
                         packageFormat = PackageFormat.nsis;
                     }
+                    else if (format == "deb" || format == "debian") {
+                        packageFormat = PackageFormat.deb;
+                    }
                 }
             }
         }
@@ -74,6 +76,9 @@ class Main {
 
         if (packageFormat == PackageFormat.nsis) {
             buildNsisInstaller();
+        }
+        else if (packageFormat == PackageFormat.deb) {
+            createDebPackage();
         }
     }
 
@@ -186,7 +191,7 @@ class Main {
             FileSystem.createDirectory(debRootPath);
         }
 
-        var debPackagePath = debRootPath + "sunaba-player_" + exportType + "/";
+        var debPackagePath = debRootPath + "sunaba-player-" + exportType + "/";
         if (!FileSystem.exists(debPackagePath)) {
             FileSystem.createDirectory(debPackagePath);
         }
@@ -196,17 +201,38 @@ class Main {
             FileSystem.createDirectory(debUsrPath);
         }
 
-        buildUnixDir(debUsrPath);
+        buildUnixUsrDir(debUsrPath);
 
         var debDebianPath = debPackagePath + "DEBIAN/";
         if (!FileSystem.exists(debDebianPath)) {
             FileSystem.createDirectory(debDebianPath);
         }
 
+        var cwdDebianFilesPath = cwd + "debian_files/";
 
+        File.copy(cwdDebianFilesPath + "control", debDebianPath + "control");
+        //File.copy(cwdDebianFilesPath + "postinst", debDebianPath + "postinst");
+        //File.copy(cwdDebianFilesPath + "preinst", debDebianPath + "preinst");
+        File.copy(cwdDebianFilesPath + "changelog", debDebianPath + "changelog");
+        File.copy(cwd + "LICENSE", debDebianPath + "copyright");
+
+        var result = Sys.command("dpkg-deb --build " + debPackagePath);
+
+        if (result != 0) {
+            Sys.println("dpkg-deb failed at " + result);
+        }
+
+        var debOutputPath = cwd + "bin/" + targetPlatform + "-" + exportType + "-deb/";
+        if (!FileSystem.exists(debOutputPath)) {
+            FileSystem.createDirectory(debOutputPath);
+        }
+
+        var debPackageName = "sunaba-player-" + exportType + ".deb";
+
+        File.copy(debRootPath + debPackageName, debOutputPath + debPackageName);
     }
 
-    public static function buildUnixDir(path: String) {
+    public static function buildUnixUsrDir(path: String) {
         var cwd = Sys.getCwd();
         if (!StringTools.endsWith(cwd, "/")) {
             cwd += "/";
@@ -236,6 +262,12 @@ class Main {
         }
         if (!FileSystem.exists(shareSunabaPath)) {
             FileSystem.createDirectory(shareSunabaPath);
+        }
+        if (!FileSystem.exists(shareApplicationsPath)) {
+            FileSystem.createDirectory(shareApplicationsPath);
+        }
+        if (!FileSystem.exists(sharePixmapsPath)) {
+            FileSystem.createDirectory(sharePixmapsPath);
         }
 
         var executableName = "sunaba-player";

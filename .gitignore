@@ -3,3 +3,4 @@ build.js
 /template/bin/*
 /bin/*
 SunabaPlayerSetup.exe
+.debian/*
