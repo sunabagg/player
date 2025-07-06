@@ -18,7 +18,7 @@ jobs:
         build_type: ['debug', 'release']
         config:
           - { name: '🍏 macOS', target: mac-universal, pkgformat: none, os: macos-latest }
-          - { name: '🐧 Linux', target: linux-amd64, pkgformat: none, os: ubuntu-latest }
+          - { name: '🐧 Linux', target: linux-amd64, pkgformat: deb, os: ubuntu-latest }
           - { name: '🪟 Windows', target: windows-amd64, pkgformat: nsis, os: ubuntu-latest }
 
     name: 🛠 Build / ${{ matrix.config.name }} (${{ matrix.build_type }})
@@ -52,7 +52,7 @@ jobs:
         if: matrix.config.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y haxe nsis
+          sudo apt-get install -y haxe nsis dpkg-dev
 
       - name: Install Dependencies (Windows)
         if: matrix.config.os == 'windows-latest'
