@@ -207,7 +207,11 @@ class Main {
     }
 
     public static function buildUnixDir(path: String) {
-        var rootPath = Sys.getCwd() + "bin";
+        var cwd = Sys.getCwd();
+        if (!StringTools.endsWith(cwd, "/")) {
+            cwd += "/";
+        }
+        var rootPath = cwd + "bin";
         var exportPath = rootPath + "/" + targetPlatform + "-" + exportType + "/";
 
         if (!StringTools.endsWith(path, "/")) {
@@ -218,6 +222,8 @@ class Main {
         var libPath = path + "lib/";
         var sharePath = path + "share/";
         var shareSunabaPath = sharePath + "sunaba/";
+        var shareApplicationsPath = sharePath + "applications/";
+        var sharePixmapsPath = sharePath + "pixmaps/";
 
         if (!FileSystem.exists(binPath)) {
             FileSystem.createDirectory(binPath);
@@ -241,10 +247,9 @@ class Main {
         }
         File.copy(exportPath + libraryName, libPath + libraryName);
 
-        for (file in FileSystem.readDirectory(exportPath)) {
-            if (StringTools.contains(file, executableName) || StringTools.contains(file, libraryName)) {
-                continue;
-            }
-        }
+        File.copy(exportPath + "player.sbx", shareSunabaPath + "player.sbx");
+        File.copy(exportPath + "mobdebug.lua", shareSunabaPath + "mobdebug.lua");
+        File.copy(cwd + "sunaba-player.desktop", shareApplicationsPath + "sunaba-player.desktop");
+        File.copy(cwd + "sunaba.png", sharePixmapsPath + "sunaba.png");
     }
 }
