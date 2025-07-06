@@ -79,9 +79,14 @@ jobs:
       - name: Build buildsystem scripts
         run: haxe buildsys.hxml
       
-      - name: Build
-        run: node build export --target=${{ matrix.config.target }} -{{ matrix.build_type }} --pkgformat=${{ matrix.config.pkgformat }}
-      
+      - name: Build (Debug)
+        if: matrix.build_type == 'debug'
+        run: node build export -debug --target=${{ matrix.config.target }}  --pkgformat=${{ matrix.config.pkgformat }}
+
+      - name: Build (Release)
+        if: matrix.build_type == 'release'
+        run: node build export -release --target=${{ matrix.config.target }} --pkgformat=${{ matrix.config.pkgformat }}
+
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
