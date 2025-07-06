@@ -226,7 +226,7 @@ class Main {
         File.copy(cwdDebianFilesPath + "control", debDebianPath + "control");
         //File.copy(cwdDebianFilesPath + "postinst", debDebianPath + "postinst");
         //File.copy(cwdDebianFilesPath + "preinst", debDebianPath + "preinst");
-        File.copy(cwdDebianFilesPath + "changelog", debDebianPath + "changelog");
+        //File.copy(cwdDebianFilesPath + "changelog", debDebianPath + "changelog");
         File.copy(cwd + "LICENSE", debDebianPath + "copyright");
 
         var result = Sys.command("dpkg-deb --build " + debPackagePath);
