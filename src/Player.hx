@@ -108,19 +108,26 @@ class Player extends Widget {
         var viewport = rootElement.getViewport();
         trace(viewport == null);
 
-        try {
-            var parent : Element = untyped __lua__("_G.rootElement");
+        var parent : Element = untyped __lua__("_G.rootElement");
+        parent.treeEntered.connect((args: ArrayList) -> {
             var window = parent.getWindow();
-            //var window = Window.toWindow(parentParent);
-            /*window.filesDropped.connect((args: ArrayList) -> {
-                var fileStringVector = args.get(0).toStringArray();
-                var firstSbxPath = fileStringVector.get(0);
-                trace(firstSbxPath);
-            });*/
-        }
-        catch (e) {
-            trace(e);
-        }
+            window.filesDropped.connect((args: ArrayList) -> {
+                trace("Files dropped on window");
+                if (args.size() == 0) {
+                    trace("No files dropped");
+                    return;
+                }
+                var fileStringVector = args.get(0).toStringArray().toArray();
+                if (fileStringVector.length == 0) {
+                    trace("No files dropped");
+                    return;
+                }
+                var firstSbxPath = fileStringVector[0];
+                if (StringTools.endsWith(firstSbxPath, ".sbx")) {
+                    openSbx(firstSbxPath);
+                }
+            });
+        });
 
         if (sbxPath != "" && StringTools.endsWith(sbxPath, ".sbx")) {
             openSbx(sbxPath);
