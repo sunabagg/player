@@ -20,7 +20,9 @@ class Main {
             Sys.println("Usage: node build [run|export] [--godot-command=<command>] [--target=<platform>] [-debug|-release]");
             Sys.println("  run: Run the Sunaba Player");
             Sys.println("  --godot-command=<command>: Specify the Godot command to use (default: godot)");
+            Sys.println("  --skip: Skip the build step");
             Sys.println("  export: Export the Sunaba Player for the specified platform");
+            Sys.println("  --skip: Skip the build step");
             Sys.println("  --godot-command=<command>: Specify the Godot command to use (default: godot)");
             Sys.println("  --target=<platform>: Specify the target platform (default: auto-detect based on OS)");
             Sys.println("  -debug: Export in debug mode");
