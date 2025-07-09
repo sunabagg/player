@@ -109,15 +109,7 @@ class Player extends Widget {
                 aboutDialog.popupCentered(new Vector2i(300 * scaleFactorInt, 123 * scaleFactorInt));
             }
             else if (id == 0) {
-                trace("Help menu item pressed");
-                // Add help functionality here if needed
-                try {
-                    var res = PlatformService.shellOpen("https://docs.sunaba.gg");
-                    trace("Opened help documentation: " + res);
-                }
-                catch (e) {
-                    trace("Failed to open help documentation: " + e);
-                }
+                var res = PlatformService.shellOpen("https://docs.sunaba.gg");
             }
         });
 
