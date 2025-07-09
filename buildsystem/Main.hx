@@ -22,12 +22,12 @@ class Main {
             Sys.println("  --godot-command=<command>: Specify the Godot command to use (default: godot)");
             Sys.println("  --skip: Skip the build step");
             Sys.println("  export: Export the Sunaba Player for the specified platform");
-            Sys.println("  --skip: Skip the build step");
+            Sys.println("  --skip -s: Skip the build step");
             Sys.println("  --godot-command=<command>: Specify the Godot command to use (default: godot)");
-            Sys.println("  --target=<platform>: Specify the target platform (default: auto-detect based on OS)");
-            Sys.println("  -debug: Export in debug mode");
-            Sys.println("  -release: Export in release mode");
-            Sys.println("  --pkgformat=<format>: Specify the package format (none, nsis, deb, dmg)");
+            Sys.println("  --target=<platform> -t=<platform>: Specify the target platform (default: auto-detect based on OS)");
+            Sys.println("  --debug -d: Export in debug mode");
+            Sys.println("  --release -r: Export in release mode");
+            Sys.println("  --pkgformat=<format> -p: Specify the package format (none, nsis, deb, dmg)");
             return;
         }
 
@@ -56,17 +56,38 @@ class Main {
             else if (StringTools.startsWith(arg, "--target=")) {
                 targetPlatform = StringTools.replace(arg, "--target=", "");
             }
-            else if (arg == "-debug") {
+            else if (arg == "--debug" || arg == "-d") {
                 exportType = ExportType.debug;
             }
-            else if (arg == "-release") {
+            else if (arg == "--release" || arg == "-r") {
                 exportType = ExportType.release;
             }
-            else if (arg == "--skip") {
+            else if (arg == "--skip" || arg == "-s") {
                 skipBuild = true;
             }
             else if (StringTools.startsWith(arg, "--pkgformat=")) {
                 var format = StringTools.replace(arg, "--pkgformat=", "");
+                if (format != "") {
+                    if (format == "nsis") {
+                        packageFormat = PackageFormat.nsis;
+                    }
+                    else if (format == "deb" || format == "debian") {
+                        packageFormat = PackageFormat.deb;
+                    }
+                    else if (format == "dmg") {
+                        packageFormat = PackageFormat.dmg;
+                    }
+                    else {
+                        Sys.println("Unknown package format: " + format);
+                        Sys.exit(-1);
+                    }
+                }
+            }
+            else if (StringTools.startsWith(arg, "-t=")) {
+                targetPlatform = StringTools.replace(arg, "-t=", "");
+            }
+            else if (StringTools.startsWith(arg, "-p=")) {
+                var format = StringTools.replace(arg, "-p=", "");
                 if (format != "") {
                     if (format == "nsis") {
                         packageFormat = PackageFormat.nsis;
