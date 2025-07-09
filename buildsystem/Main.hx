@@ -71,6 +71,13 @@ class Main {
                     else if (format == "deb" || format == "debian") {
                         packageFormat = PackageFormat.deb;
                     }
+                    else if (format == "dmg") {
+                        packageFormat = PackageFormat.dmg;
+                    }
+                    else {
+                        Sys.println("Unknown package format: " + format);
+                        Sys.exit(-1);
+                    }
                 }
             }
         }
@@ -91,6 +98,9 @@ class Main {
         }
         else if (packageFormat == PackageFormat.deb) {
             createDebPackage();
+        }
+        else if (packageFormat == PackageFormat.dmg) {
+            exportDmg();
         }
     }
 
@@ -296,5 +306,19 @@ class Main {
         File.copy(exportPath + "mobdebug.lua", shareSunabaPath + "mobdebug.lua");
         File.copy(cwd + "sunaba-player.desktop", shareApplicationsPath + "sunaba-player.desktop");
         File.copy(cwd + "sunaba.png", sharePixmapsPath + "sunaba.png");
+    }
+
+    public static function exportDmg() {
+        var applicationsFolder = "/Applications/";
+        Sys.command("ln -s /Applications/ " + Sys.getCwd() + "/bin/" + targetPlatform + "-" + exportType + "/Applications");
+        Sys.command("hdiutil create -volname 'Sunaba Player' -srcfolder 'bin/" + targetPlatform + "-" + exportType + "' -ov -format UDZO 'bin/sunaba-player-" + exportType + ".dmg'");
+        Sys.println("DMG package created at: bin/sunaba-player-" + exportType + ".dmg");
+        var dmgPath = Sys.getCwd() + "bin/sunaba-player-" + exportType + ".dmg";
+        if (!FileSystem.exists(dmgPath)) {
+            Sys.println("DMG package creation failed.");
+            Sys.exit(-1);
+        } else {
+            Sys.println("DMG package created successfully at: " + dmgPath);
+        }
     }
 }
