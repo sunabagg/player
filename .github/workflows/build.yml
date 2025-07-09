@@ -102,4 +102,3 @@ jobs:
           name: sunaba-player-${{ matrix.config.target }}-${{ matrix.build_type }}
           path: |
             ${{ github.workspace }}/bin/*.dmg
-            ${{ github.workspace }}/bin/**/*.app
