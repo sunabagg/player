@@ -40,7 +40,6 @@ class Main {
         }
 
         var currentDir = Sys.getCwd();
-        trace(currentDir);
         if (StringTools.contains(currentDir, "\\"))
             currentDir = StringTools.replace(currentDir, "\\", "/");
 
@@ -93,8 +92,6 @@ class Main {
             Sys.println("Skipping build step.");
         }
 
-        trace("exportType == ExportType.debug: " + exportType == ExportType.debug);
-        trace("exportType == ExportType.release: " + exportType == ExportType.release);
 
         if (args[0] == "run") {
             run();
