@@ -103,7 +103,7 @@ class Player extends Widget {
         }
         helpMenu.idPressed.connect((args: ArrayList) -> {
             var id = args.get(0).toInt();
-            if (id == 0 && PlatformService.osName != "macOS") {
+            if (id == (helpMenu.itemCount - 1) && PlatformService.osName != "macOS") {
                 var scaleFactor = aboutDialog.contentScaleFactor;
                 var scaleFactorInt = Math.round(scaleFactor);
                 aboutDialog.popupCentered(new Vector2i(300 * scaleFactorInt, 123 * scaleFactorInt));
