@@ -25,6 +25,7 @@ class Main {
             Sys.println("  --target=<platform>: Specify the target platform (default: auto-detect based on OS)");
             Sys.println("  -debug: Export in debug mode");
             Sys.println("  -release: Export in release mode");
+            Sys.println("  --pkgformat=<format>: Specify the package format (none, nsis, deb, dmg)");
             return;
         }
 
