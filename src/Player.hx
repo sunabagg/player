@@ -99,7 +99,7 @@ class Player extends Widget {
             helpMenu.systemMenuId = 4;
         }
         if (PlatformService.osName == "macOS") {
-            helpMenu.removeItem(0); // Remove "About" item on macOS
+            helpMenu.removeItem((helpMenu.itemCount - 1)); // Remove "About" item on macOS
         }
         helpMenu.idPressed.connect((args: ArrayList) -> {
             var id = args.get(0).toInt();
@@ -107,6 +107,17 @@ class Player extends Widget {
                 var scaleFactor = aboutDialog.contentScaleFactor;
                 var scaleFactorInt = Math.round(scaleFactor);
                 aboutDialog.popupCentered(new Vector2i(300 * scaleFactorInt, 123 * scaleFactorInt));
+            }
+            else if (id == 0) {
+                trace("Help menu item pressed");
+                // Add help functionality here if needed
+                try {
+                    var res = PlatformService.shellOpen("https://docs.sunaba.gg");
+                    trace("Opened help documentation: " + res);
+                }
+                catch (e) {
+                    trace("Failed to open help documentation: " + e);
+                }
             }
         });
 
