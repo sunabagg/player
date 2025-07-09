@@ -93,16 +93,3 @@ jobs:
           name: sunaba-player-${{ matrix.config.target }}-${{ matrix.build_type }}
           path: |
             ${{ github.workspace }}/bin/*
-  
-      - name: Update Nightly Release
-        uses: andelf/nightly-release@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: nightly
-          name: 'Desktop App Nightly Release $$'
-          prerelease: true
-          body: 'TODO: Add nightly release notes'
-          files: |
-            ${{ github.workspace }}/bin/*.deb
-            ${{ github.workspace }}/bin/*.exe
