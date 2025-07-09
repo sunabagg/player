@@ -92,7 +92,7 @@ jobs:
         with:
           name: sunaba-player-${{ matrix.config.target }}-${{ matrix.build_type }}
           path: |
-            ${{ github.workspace }}/bin/*.deb
+            ${{ github.workspace }}/.debian/*.deb
             ${{ github.workspace }}/bin/*.dmg
             ${{ github.workspace }}/bin/*Setup.exe
             ${{ github.workspace }}/bin/*SetupDebug.exe
