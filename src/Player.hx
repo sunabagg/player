@@ -29,6 +29,8 @@ class Player extends Widget {
 
     var menuBarControl: Control;
 
+    var aboutDialog : AcceptDialog;
+
     override function init() {
         load("app://Player.suml");
 
@@ -42,7 +44,7 @@ class Player extends Widget {
 
         subViewport = SubViewport.toSubViewport(rootElement.find("vbox/gameView/subViewportContainer/subViewport"));
 
-        var aboutDialog : AcceptDialog = AcceptDialog.toAcceptDialog(rootElement.find("aboutDialog"));
+        aboutDialog = AcceptDialog.toAcceptDialog(rootElement.find("aboutDialog"));
         buildAboutDialog(aboutDialog);
 
         menuBarControl = Control.toControl(rootElement.find("vbox/menuBarControl"));
@@ -96,9 +98,12 @@ class Player extends Widget {
         if ((PlatformService.deviceType == DeviceType.desktop) && (PlatformService.osName != "Windows")) {
             helpMenu.systemMenuId = 4;
         }
+        if (PlatformService.osName == "macOS") {
+            helpMenu.removeItem(0); // Remove "About" item on macOS
+        }
         helpMenu.idPressed.connect((args: ArrayList) -> {
             var id = args.get(0).toInt();
-            if (id == 0) {
+            if (id == 0 && PlatformService.osName != "macOS") {
                 var scaleFactor = aboutDialog.contentScaleFactor;
                 var scaleFactorInt = Math.round(scaleFactor);
                 aboutDialog.popupCentered(new Vector2i(300 * scaleFactorInt, 123 * scaleFactorInt));
@@ -211,6 +216,14 @@ class Player extends Widget {
         }
         catch (e) {
             trace(e);
+        }
+    }
+
+    function notification(what: Int) {
+        if (what == 2011) {
+            var scaleFactor = aboutDialog.contentScaleFactor;
+            var scaleFactorInt = Math.round(scaleFactor);
+            aboutDialog.popupCentered(new Vector2i(300 * scaleFactorInt, 123 * scaleFactorInt));
         }
     }
 }
