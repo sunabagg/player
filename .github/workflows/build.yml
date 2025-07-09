@@ -88,11 +88,18 @@ jobs:
         run: node build export -release --target=${{ matrix.config.target }} --pkgformat=${{ matrix.config.pkgformat }}
 
       - name: Upload Build Artifacts
+        if: matrix.config.os != 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
           name: sunaba-player-${{ matrix.config.target }}-${{ matrix.build_type }}
           path: |
-            ${{ github.workspace }}/.debian/*.deb
+            ${{ github.workspace }}/bin/*
+
+      - name: Upload Build Artifacts (macOS)
+        if: matrix.config.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sunaba-player-${{ matrix.config.target }}-${{ matrix.build_type }}
+          path: |
             ${{ github.workspace }}/bin/*.dmg
-            ${{ github.workspace }}/bin/*Setup.exe
-            ${{ github.workspace }}/bin/*SetupDebug.exe
+            ${{ github.workspace }}/bin/**/*.app
