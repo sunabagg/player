@@ -44,9 +44,7 @@ class Main {
         if (StringTools.contains(currentDir, "\\"))
             currentDir = StringTools.replace(currentDir, "\\", "/");
 
-        var tsukuru = new Tsukuru();
-        tsukuru.zipOutputPath = currentDir + "template/player.sbx";
-        tsukuru.build(currentDir + "player.snbproj");
+        var skipBuild = false;
 
         for (i in 0...args.length) {
             var arg = args[i];
@@ -62,6 +60,9 @@ class Main {
             }
             else if (arg == "-release") {
                 exportType = ExportType.release;
+            }
+            else if (arg == "--skip") {
+                skipBuild = true;
             }
             else if (StringTools.startsWith(arg, "--pkgformat=")) {
                 var format = StringTools.replace(arg, "--pkgformat=", "");
@@ -81,6 +82,15 @@ class Main {
                     }
                 }
             }
+        }
+
+        var tsukuru = new Tsukuru();
+        tsukuru.zipOutputPath = currentDir + "template/player.sbx";
+        if (!skipBuild) {
+            tsukuru.build(currentDir + "player.snbproj");
+        }
+        else {
+            Sys.println("Skipping build step.");
         }
 
         trace("exportType == ExportType.debug: " + exportType == ExportType.debug);
