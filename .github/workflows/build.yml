@@ -81,11 +81,11 @@ jobs:
       
       - name: Build (Debug)
         if: matrix.build_type == 'debug'
-        run: node build export -debug --target=${{ matrix.config.target }}  --pkgformat=${{ matrix.config.pkgformat }}
+        run: node build export --debug --target=${{ matrix.config.target }}  --pkgformat=${{ matrix.config.pkgformat }}
 
       - name: Build (Release)
         if: matrix.build_type == 'release'
-        run: node build export -release --target=${{ matrix.config.target }} --pkgformat=${{ matrix.config.pkgformat }}
+        run: node build export --release --target=${{ matrix.config.target }} --pkgformat=${{ matrix.config.pkgformat }}
 
       - name: Upload Build Artifacts
         if: matrix.config.os != 'macos-latest'
